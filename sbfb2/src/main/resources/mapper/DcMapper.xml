@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:填写映射当前的Mapper接口，所有的增删改查的参数和返回值类型，
+		就可以直接填写缩写，不区分大小写，直接通过方法名去找类型-->
+<mapper namespace="com.example.mybatissb.mapper.DcMapper">
+    <insert id="addroot">
+        insert into cigen(id,mean,rate) values(#{param1},#{param2},#{param3})
+    </insert>
+    <update id="changerate">
+        update cigen set rate=rate+1 where id=#{id}
+    </update>
+    <update id="editdata">
+      update cigen set id=#{param1},mean=#{param2} where id=#{param3}
+    </update>
+    <delete id="delroot">
+        delete  from cigen where id=#{delid}
+    </delete>
+
+
+    <select id="findall" resultType="com.example.mybatissb.domin.Dc">
+        select * from cigen where mod(rate,2)=0 limit #{param1},#{param2}
+    </select>
+
+    <select id="counttotal" resultType="int">
+        select count(id) from cigen where mod(rate,2)=0
+    </select>
+
+    <select id="findeasy" resultType="com.example.mybatissb.domin.Dc">
+        select * from cigen where mod(rate,2)=1 limit #{param1},#{param2}
+    </select>
+    <select id="counteasy" resultType="java.lang.Integer">
+
+    select count(id) from cigen where mod(rate,2)=1
+    </select>
+    <select id="ct" resultType="com.example.mybatissb.domin.Dc">
+        select * from cigen order by rate desc limit #{param1},#{param2}
+    </select>
+    <select id="allcount" resultType="java.lang.Integer">
+        select count(id) from cigen
+    </select>
+    <select id="searchroot" resultType="com.example.mybatissb.domin.Dc">
+
+    select * from cigen where id like concat("%",#{param1},"%")
+    limit #{param2},#{param3}
+    </select>
+    <select id="searchrootcount" resultType="java.lang.Integer">
+    select count(id) from cigen where id like concat("%",#{likestr},"%")
+    </select>
+
+
+</mapper>
